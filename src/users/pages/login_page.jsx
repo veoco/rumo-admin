@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { Link, Route, useLocation } from "wouter";
 import { Form, Button, Toast } from '@douyinfe/semi-ui';
 
-import { mapFail } from "../../general/utils";
+import { mapFail } from "../../common/utils";
 
 export default function LoginPage() {
   const [location, setLocation] = useLocation();
