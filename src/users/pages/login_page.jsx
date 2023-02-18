@@ -1,5 +1,5 @@
-import { useEffect, useRef } from "react";
-import { Link, Route, useLocation } from "wouter";
+import { useEffect } from "react";
+import { Link, useLocation } from "wouter";
 import { Form, Button, Toast } from '@douyinfe/semi-ui';
 
 import { mapFail } from "../../common/utils";
@@ -36,7 +36,7 @@ export default function LoginPage() {
   }
 
   return (
-    <Form className="h-[calc(100vh-4rem)] max-w-xs mx-auto flex flex-col justify-center" labelPosition='inset' onSubmit={handleSubmit}>
+    <Form className="h-[calc(100vh-8rem)] max-w-xs mx-auto flex flex-col justify-center" labelPosition='inset' onSubmit={handleSubmit}>
       <h2 className="text-center text-lg font-bold pb-1">管理登录</h2>
       <Form.Input field='mail' label='邮箱' type="email" />
       <Form.Input field='password' label="密码" type="password" />

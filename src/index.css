@@ -1,5 +1,1 @@
 @tailwind base;
-
-body {
-  @apply bg-stone-100;
-}
