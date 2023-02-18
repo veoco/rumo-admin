@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Layout, Nav } from '@douyinfe/semi-ui';
 import { Route, useLocation, Router } from "wouter";
 import { Avatar } from '@douyinfe/semi-ui';
-import { IconHome, IconUser, IconFolder, IconPriceTag, IconFile } from '@douyinfe/semi-icons';
+import { IconHome, IconUser, IconFolder, IconPriceTag, IconFile, IconGallery } from '@douyinfe/semi-icons';
 
 import ErrorPage from './common/error_page';
 
@@ -15,6 +15,8 @@ import CategoriesPage from "./categories/pages/categories_page";
 import TagsPage from "./tags/pages/tags_page";
 
 import PostsPage from "./posts/pages/posts_page";
+
+import PagesPage from "./pages/pages/pages_page";
 
 import "./app.css"
 
@@ -47,6 +49,7 @@ export default function App() {
             { itemKey: '/admin/categories/', text: '分类', icon: <IconFolder /> },
             { itemKey: '/admin/tags/', text: '标签', icon: <IconPriceTag /> },
             { itemKey: '/admin/posts/', text: '文章', icon: <IconFile /> },
+            { itemKey: '/admin/pages/', text: '页面', icon: <IconGallery /> },
           ]}
           header={{ text: '管理面板', logo: <Avatar style={{ color: '#333', backgroundColor: '#fff' }} size="small" alt='Rumo' onClick={() => { setLocation("/admin/") }}>R</Avatar> }}
           footer={{ collapseButton: true }}
@@ -62,6 +65,7 @@ export default function App() {
             <Route path="/categories/" component={CategoriesPage} />
             <Route path="/tags/" component={TagsPage} />
             <Route path="/posts/" component={PostsPage} />
+            <Route path="/pages/" component={PagesPage} />
           </Router>
         </Layout.Content>
       </Layout>
