@@ -3,6 +3,8 @@ import { Form, Button, Toast, Col, Row } from '@douyinfe/semi-ui';
 import { Link, useLocation } from "wouter";
 import useSWR, { useSWRConfig } from 'swr'
 
+import { mapFail } from "../../common/utils";
+
 export default function CategoryPage({ params }) {
   const { data, error, isLoading } = useSWR(`/api/categories/${params.slug}`);
   const [location, setLocation] = useLocation();
@@ -17,15 +19,22 @@ export default function CategoryPage({ params }) {
 
   const handleSubmit = async (values) => {
     const access_token = sessionStorage.getItem("access_token");
-    const r = await fetch(`/api/categories/${params.slug}`, {
-      method: 'PATCH',
+    let method = 'PATCH';
+    let url = `/api/categories/${params.slug}`;
+    if (!params.slug) {
+      method = 'POST';
+      url = `/api/categories/`;
+    }
+
+    const r = await fetch(url, {
+      method: method,
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${access_token}`,
       },
       body: JSON.stringify(values),
     })
-    if (r.status != 200) {
+    if (r.status != 200 && r.status != 201) {
       if (r.status == 400) {
         Toast.error({ content: '参数错误' })
       } else {
@@ -33,8 +42,8 @@ export default function CategoryPage({ params }) {
       }
       return;
     }
-    Toast.info({ content: '已更新' });
-    mutate(`/api/categories/${params.slug}`);
+    Toast.info({ content: params.slug ? "已修改" : "已创建" });
+    mutate(url);
     setLocation("/categories/");
   }
 
@@ -52,7 +61,7 @@ export default function CategoryPage({ params }) {
         <Form.TextArea field='description' label="描述" initValue={data.description} />
       </Row>
       <div className="w-full mt-2">
-        <Button htmlType='submit' type="tertiary">修改</Button>
+        <Button htmlType='submit' type="tertiary">{params.slug ? "修改" : "创建"}</Button>
       </div>
     </Form>
   )

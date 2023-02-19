@@ -61,7 +61,8 @@ export default function App() {
           <Route path="/login" component={LoginPage} />
           <Route path="/users/" component={UsersPage} />
           <Route path="/categories/" component={CategoriesPage} />
-          <Route path="/categories/:slug" component={CategoryPage} />
+          <Route path="/categories/create" component={CategoryPage} />
+          <Route path="/categories/:slug/" component={CategoryPage} />
           <Route path="/tags/" component={TagsPage} />
           <Route path="/posts/" component={PostsPage} />
           <Route path="/pages/" component={PagesPage} />

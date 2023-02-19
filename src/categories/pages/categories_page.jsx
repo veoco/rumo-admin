@@ -20,9 +20,13 @@ export default function CategoriesPage() {
 
   return (
     <>
+      <div className="mb-1 flex items-center">
+        <h2 className="font-bold mr-auto">全部分类</h2>
+        <Link className="underline mr-1.5" href={`/categories/create`}>新增</Link>
+      </div>
       {data.results.map(item => {
         return (
-          <Link className="underline mr-1.5" href={`/categories/${item.slug}`} key={item.mid}>{item.name}</Link>
+          <Link className="underline mr-1.5" href={`/categories/${item.slug}/`} key={item.mid}>{item.name}</Link>
         )
       })}
       <Pagination className={data.all_count > 400 ? "mt-2" : "hidden"} total={data.all_count} pageSize={400} currentPage={page} onPageChange={handlePageChange} showQuickJumper></Pagination>
