@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { Form, Button, Toast, Col, Row } from '@douyinfe/semi-ui';
-import { Link } from "wouter";
-import useSWR from 'swr'
+import { Link, useLocation } from "wouter";
+import useSWR, { useSWRConfig } from 'swr'
 
 export default function CategoryPage({ params }) {
   const { data, error, isLoading } = useSWR(`/api/categories/${params.slug}`);
+  const [location, setLocation] = useLocation();
+  const { mutate } = useSWRConfig()
 
   useEffect(() => {
     document.title = "分类修改";
@@ -31,7 +33,9 @@ export default function CategoryPage({ params }) {
       }
       return;
     }
-    setLocation("/admin/categories/");
+    Toast.info({ content: '已更新' });
+    mutate(`/api/categories/${params.slug}`);
+    setLocation("/categories/");
   }
 
   return (
