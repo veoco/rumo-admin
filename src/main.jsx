@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactDOM from 'react-dom/client'
+import { createRoot } from 'react-dom/client';
 import { SWRConfig } from 'swr'
 
 import './index.css'
@@ -17,8 +17,9 @@ async function fetchWithAuth(resource, init) {
   return res;
 }
 
-
-ReactDOM.createRoot(document.getElementById('root')).render(
+const container = document.getElementById('root');
+const root = createRoot(container);
+root.render(
   <React.StrictMode>
     <SWRConfig value={{ fetcher: fetchWithAuth }}>
       <App />
