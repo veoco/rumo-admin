@@ -27,7 +27,6 @@ export default function UsersPage() {
       <div>
         {data.results.map(item => {
           const created = new Date(item.created * 1000);
-          const modified = new Date(item.modified * 1000);
           return (
             <div className="my-1" key={item.uid}>
               <h2><Link className="underline mr-1.5" href={`/users/`}>{item.screenName}</Link></h2>
