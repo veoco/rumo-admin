@@ -24,11 +24,13 @@ export default function TagsPage() {
         <h2 className="font-bold mr-auto">全部标签</h2>
         <Link className="underline mr-1.5" href={`/tags/create`}>新增</Link>
       </div>
-      {data.results.map(item => {
-        return (
-          <Link className="underline mr-1.5" href={`/tags/${item.slug}/`} key={item.mid}>{item.name}</Link>
-        )
-      })}
+      <div>
+        {data.results.map(item => {
+          return (
+            <Link className="underline mr-1.5" href={`/tags/${item.slug}/`} key={item.mid}>{item.name}</Link>
+          )
+        })}
+      </div>
       <Pagination className={data.all_count > 400 ? "mt-2" : "hidden"} total={data.all_count} pageSize={400} currentPage={page} onPageChange={handlePageChange} showQuickJumper></Pagination>
     </>
   )
