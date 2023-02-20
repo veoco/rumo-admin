@@ -118,6 +118,27 @@ export default function PostPage({ params }) {
 
   const handleDelete = async (e) => {
     const access_token = sessionStorage.getItem("access_token");
+
+    for (let slug of categories) {
+      await fetch(`/api/categories/${slug}/posts/${values.slug}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${access_token}`,
+        },
+      })
+    }
+
+    for (let slug of tags) {
+      await fetch(`/api/tags/${slug}/posts/${values.slug}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${access_token}`,
+        },
+      })
+    }
+
     const r = await fetch(`/api/posts/${params.slug}`, {
       method: 'DELETE',
       headers: {
