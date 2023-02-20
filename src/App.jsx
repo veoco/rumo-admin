@@ -11,6 +11,7 @@ import CategoriesPage from "./categories/pages/categories_page";
 import CategoryPage from "./categories/pages/category_page";
 
 import TagsPage from "./tags/pages/tags_page";
+import TagPage from "./tags/pages/tag_page";
 
 import PostsPage from "./posts/pages/posts_page";
 
@@ -32,16 +33,10 @@ export default function App() {
 
   const token = sessionStorage.getItem('access_token');
   const [isLoginPage] = useRoute("/admin/login");
-  const [selectedKeys, setSelectedKeys] = useState([location]);
 
   if (!isLoginPage && !token) {
     setLocation("/admin/login");
   }
-
-  const handleSelect = data => {
-    setLocation(data.itemKey)
-    setSelectedKeys([...data.selectedKeys]);
-  };
 
   return (
     <>
@@ -64,6 +59,8 @@ export default function App() {
           <Route path="/categories/create" component={CategoryPage} />
           <Route path="/categories/:slug/" component={CategoryPage} />
           <Route path="/tags/" component={TagsPage} />
+          <Route path="/tags/create" component={TagPage} />
+          <Route path="/tags/:slug/" component={TagPage} />
           <Route path="/posts/" component={PostsPage} />
           <Route path="/pages/" component={PagesPage} />
         </Router>
