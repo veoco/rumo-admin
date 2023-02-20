@@ -1,9 +1,6 @@
 name: Build
 
-on:
-  push:
-    tags:
-      - v*
+on: push
 
 jobs:
   build:
@@ -19,17 +16,13 @@ jobs:
 
     - name: Build
       run: |
-        mkdir -p ./build/release
         npm i
         npm run build
         cd dist
         tar -cf rumo-admin.tar.gz ./*
-        mv rumo-admin.tar.gz ../build/release
       
-    - name: Upload Github Assets
-      uses: softprops/action-gh-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Archive code coverage results
+      uses: actions/upload-artifact@v3
       with:
-        files: build/release/*
-        prerelease: ${{ contains(github.ref, '-') }}
+        name: rumo-admin
+        path: dist/rumo-admin.tar.gz
