@@ -18,11 +18,9 @@ jobs:
       run: |
         npm i
         npm run build
-        cd dist
-        tar -cf rumo-admin.tar.gz ./*
       
-    - name: Archive code coverage results
+    - name: Upload
       uses: actions/upload-artifact@v3
       with:
         name: rumo-admin
-        path: dist/rumo-admin.tar.gz
+        path: dist/*
