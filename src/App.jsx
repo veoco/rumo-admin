@@ -14,6 +14,7 @@ import TagsPage from "./tags/pages/tags_page";
 import TagPage from "./tags/pages/tag_page";
 
 import PostsPage from "./posts/pages/posts_page";
+import PostPage from "./posts/pages/post_page";
 
 import PagesPage from "./pages/pages/pages_page";
 
@@ -62,6 +63,8 @@ export default function App() {
           <Route path="/tags/create" component={TagPage} />
           <Route path="/tags/:slug/" component={TagPage} />
           <Route path="/posts/" component={PostsPage} />
+          <Route path="/posts/create" component={PostPage} />
+          <Route path="/posts/:slug/" component={PostPage} />
           <Route path="/pages/" component={PagesPage} />
         </Router>
       </main>
