@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Form, Button, Toast, Col, Row } from '@douyinfe/semi-ui';
-import { Link, useLocation } from "wouter";
+import { useLocation } from "wouter";
 import useSWR, { useSWRConfig } from 'swr'
 
 import { mapFail } from "../../common/utils";
@@ -11,7 +11,7 @@ export default function CategoryPage({ params }) {
   const { mutate } = useSWRConfig()
 
   useEffect(() => {
-    document.title = "分类修改";
+    document.title = params.slug ? "分类修改" : "分类创建";
   })
 
   if (error) return <div>加载失败</div>;
@@ -47,6 +47,27 @@ export default function CategoryPage({ params }) {
     setLocation("/categories/");
   }
 
+  const handleDelete = async (e) => {
+    const access_token = sessionStorage.getItem("access_token");
+    const r = await fetch(`/api/categories/${params.slug}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${access_token}`,
+      }
+    })
+    if (r.status != 200 && r.status != 201) {
+      if (r.status == 400) {
+        Toast.error({ content: '参数错误' })
+      } else {
+        mapFail(r.status);
+      }
+      return;
+    }
+    Toast.info({ content: "已删除" });
+    setLocation("/categories/");
+  }
+
   return (
     <Form onSubmit={handleSubmit}>
       <Row>
@@ -61,7 +82,8 @@ export default function CategoryPage({ params }) {
         <Form.TextArea field='description' label="描述" initValue={data.description} />
       </Row>
       <div className="w-full mt-2">
-        <Button htmlType='submit' type="tertiary">{params.slug ? "修改" : "创建"}</Button>
+        <Button className="mr-2" htmlType='submit'>{params.slug ? "修改" : "创建"}</Button>
+        <Button className={params.slug ? "" : "hidden"} htmlType='button' type="danger" onClick={handleDelete}>删除</Button>
       </div>
     </Form>
   )
