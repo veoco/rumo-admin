@@ -24,7 +24,7 @@ export default function CategoriesPage() {
         <h2 className="font-bold mr-auto">全部分类</h2>
         <Link className="underline mr-1.5" href={`/categories/create`}>新增</Link>
       </div>
-      <div>
+      <div className="flex  flex-wrap">
         {data.results.map(item => {
           return (
             <Link className="underline mr-1.5" href={`/categories/${item.slug}/`} key={item.mid}>{item.name}</Link>

@@ -24,7 +24,7 @@ export default function TagsPage() {
         <h2 className="font-bold mr-auto">全部标签</h2>
         <Link className="underline mr-1.5" href={`/tags/create`}>新增</Link>
       </div>
-      <div>
+      <div className="flex flex-wrap">
         {data.results.map(item => {
           return (
             <Link className="underline mr-1.5" href={`/tags/${item.slug}/`} key={item.mid}>{item.name}</Link>
