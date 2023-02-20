@@ -1,0 +1,35 @@
+name: Build
+
+on:
+  push:
+    tags:
+      - v*
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+  
+    - name: Install Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18.x
+        cache: 'npm'
+
+    - name: Build
+      run: |
+        mkdir -p ./build/release
+        npm i
+        npm run build
+        cd dist
+        tar -cf rumo-admin.tar.gz ./*
+        mv rumo-admin.tar.gz ../build/release
+      
+    - name: Upload Github Assets
+      uses: softprops/action-gh-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        files: build/release/*
+        prerelease: ${{ contains(github.ref, '-') }}
