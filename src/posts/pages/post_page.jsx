@@ -120,7 +120,7 @@ export default function PostPage({ params }) {
     const access_token = sessionStorage.getItem("access_token");
 
     for (let slug of categories) {
-      await fetch(`/api/categories/${slug}/posts/${values.slug}`, {
+      await fetch(`/api/categories/${slug}/posts/${params.slug}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -130,7 +130,7 @@ export default function PostPage({ params }) {
     }
 
     for (let slug of tags) {
-      await fetch(`/api/tags/${slug}/posts/${values.slug}`, {
+      await fetch(`/api/tags/${slug}/posts/${params.slug}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
